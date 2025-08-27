@@ -142,17 +142,23 @@ function CodePanel({
   label?: string
   code?: string
 }) {
-  let child = Children.only(children)
+  let child: React.ReactNode | null = null
+
+  if (Children.count(children) === 1) {
+    child = Children.toArray(children)[0]
+  }
 
   if (isValidElement(child)) {
     tag = child.props.tag ?? tag
     label = child.props.label ?? label
     code = child.props.code ?? code
+  } else if (typeof children === 'string') {
+    code = code ?? children
   }
 
   if (!code) {
     throw new Error(
-      '`CodePanel` requires a `code` prop, or a child with a `code` prop.',
+      '`CodePanel` requires a `code` prop, or a child with a `code` prop, or string content.',
     )
   }
 
