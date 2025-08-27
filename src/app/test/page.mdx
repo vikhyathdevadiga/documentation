@@ -1,0 +1,44 @@
+export const metadata = {
+  title: 'Configuration Guide',
+  description:
+    'Complete guide to configuring ZeroFS, including environment variables, storage backends, and network settings.',
+}
+
+# Configuration Guide
+
+ZeroFS uses environment variables for all configuration. This guide covers all available settings to help you configure ZeroFS for your specific use case. {{ className: 'lead' }}
+
+## Required Configuration
+
+These environment variables must be set for ZeroFS to start:
+
+```bash
+# Required: Local directory for caching data
+export SLATEDB_CACHE_DIR='/var/cache/zerofs'
+
+# Required: Maximum cache size in GB
+export SLATEDB_CACHE_SIZE_GB='10'
+
+# Required: Password for data encryption
+export ZEROFS_ENCRYPTION_PASSWORD='your-secure-password'
+```
+
+## Storage Backend Configuration
+
+### AWS S3 Backend
+
+For S3 and S3-compatible services:
+
+```bash
+# Required for S3
+export AWS_ACCESS_KEY_ID='your-access-key'
+export AWS_SECRET_ACCESS_KEY='your-secret-key'
+
+# Optional S3 settings
+export AWS_ENDPOINT='https://s3.us-east-1.amazonaws.com'  # For S3-compatible services
+export AWS_DEFAULT_REGION='us-east-1'  # Default: us-east-1
+export AWS_ALLOW_HTTP='true'  # Allow HTTP endpoints (default: false)
+
+# Usage
+zerofs s3://bucket/path
+```
